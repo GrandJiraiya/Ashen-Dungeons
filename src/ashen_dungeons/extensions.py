@@ -1,15 +1,7 @@
 from flask import Flask
 
+from .db.session import init_db
+
 
 def init_extensions(app: Flask) -> None:
-    """
-    Initialize Flask extensions here later.
-
-    Examples for future phases:
-    - SQLAlchemy
-    - Migrate
-    - Login manager
-    - Caching
-    """
-    return None
-    
+    init_db(app)
