@@ -6,6 +6,12 @@ class BaseConfig:
     JSON_SORT_KEYS = False
     TEMPLATES_AUTO_RELOAD = True
 
+    DATABASE_URL = os.getenv(
+        "DATABASE_URL",
+        "postgresql+psycopg://postgres:postgres@localhost:5432/ashen_dungeons",
+    )
+    SQLALCHEMY_ECHO = os.getenv("SQLALCHEMY_ECHO", "false").lower() == "true"
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
@@ -13,6 +19,10 @@ class DevelopmentConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     TESTING = True
+    DATABASE_URL = os.getenv(
+        "TEST_DATABASE_URL",
+        "postgresql+psycopg://postgres:postgres@localhost:5432/ashen_dungeons_test",
+    )
 
 
 class ProductionConfig(BaseConfig):
