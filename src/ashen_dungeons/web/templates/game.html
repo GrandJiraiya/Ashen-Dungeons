@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Game - Ashen Dungeons{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>{{ state.player_name }} the {{ state.class_name }}</h2>
+  <p><strong>Status:</strong> {{ state.status }}</p>
+  <p><strong>Room:</strong> {{ room.title }} ({{ room.type }})</p>
+  <p><strong>Message:</strong> {{ state.message }}</p>
+  <p>
+    HP {{ state.hp }}/{{ stats.hp }} |
+    MP {{ state.mp }}/{{ stats.mp }} |
+    ATK {{ stats.attack }} |
+    DEF {{ stats.defense }} |
+    SPD {{ stats.speed }} |
+    LVL {{ state.level }} |
+    XP {{ state.xp }} |
+    Gold {{ state.gold }} |
+    Score {{ state.score }}
+  </p>
+  <p>
+    Equipment:
+    Weapon={{ state.equipment.weapon or 'None' }},
+    Armor={{ state.equipment.armor or 'None' }},
+    Trinket={{ state.equipment.trinket or 'None' }}
+  </p>
+</section>
+
+{% if enemy %}
+<section class="panel danger">
+  <h3>Enemy: {{ enemy.name }}</h3>
+  <p>HP {{ enemy.hp }}</p>
+
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+    <input type="hidden" name="action" value="attack">
+    <button type="submit">Attack</button>
+  </form>
+
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+    <input type="hidden" name="action" value="defend">
+    <button type="submit">Defend</button>
+  </form>
+
+  {% for skill in skills %}
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+    <input type="hidden" name="action" value="skill">
+    <input type="hidden" name="skill_id" value="{{ skill.id }}">
+    <button type="submit">{{ skill.name }} ({{ skill.mp_cost }} MP)</button>
+  </form>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if reward_view %}
+<section class="panel">
+  <h3>Reward</h3>
+  {% if reward_view.type == 'gold' %}
+    <p>{{ reward_view.amount }} gold awaits.</p>
+  {% elif reward_view.type == 'item' %}
+    <p>{{ reward_view.item_name }} awaits.</p>
+  {% endif %}
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}">
+    <input type="hidden" name="action" value="reward">
+    <button type="submit">Claim Reward</button>
+  </form>
+</section>
+{% endif %}
+
+{% if room.type == 'merchant' %}
+<section class="panel">
+  <h3>Merchant</h3>
+  {% for item in merchant_items %}
+    <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+      <input type="hidden" name="action" value="buy">
+      <input type="hidden" name="item_id" value="{{ item.id }}">
+      <button type="submit">Buy {{ item.name }} ({{ item.price }}g)</button>
+    </form>
+  {% endfor %}
+</section>
+{% endif %}
+
+<section class="panel">
+  <h3>Inventory</h3>
+  {% if inventory_view %}
+    <ul>
+      {% for item in inventory_view %}
+      <li>
+        {{ item.name }} x{{ item.quantity }}
+        {% if item.kind == 'consumable' %}
+        <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+          <input type="hidden" name="action" value="use_item">
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit">Use</button>
+        </form>
+        {% endif %}
+        {% if item.slot %}
+        <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+          <input type="hidden" name="action" value="equip">
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit">Equip</button>
+        </form>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Inventory is empty.</p>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h3>Progression</h3>
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+    <input type="hidden" name="action" value="next_room">
+    <button type="submit">Continue</button>
+  </form>
+
+  {% if state.status in ['won', 'lost'] %}
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+    <input type="hidden" name="action" value="submit_score">
+    <button type="submit">Submit Local Score</button>
+  </form>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('game.do_action', slot_id=slot_id) }}" class="inline">
+    <input type="hidden" name="action" value="delete">
+    <button type="submit">Delete Save</button>
+  </form>
+</section>
+{% endblock %}

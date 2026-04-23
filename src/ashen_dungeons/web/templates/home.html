@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Home - Ashen Dungeons{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>New Game</h2>
+  <form method="post" action="{{ url_for('site.new_game') }}" class="stack">
+    <label>Player Name
+      <input type="text" name="player_name" value="Wanderer">
+    </label>
+    <label>Save Slot
+      <select name="slot_id">
+        <option value="slot1">Slot 1</option>
+        <option value="slot2">Slot 2</option>
+        <option value="slot3">Slot 3</option>
+      </select>
+    </label>
+    <label>Class
+      <select name="class_id">
+        {% for cls in classes %}
+        <option value="{{ cls.id }}">{{ cls.name }} — {{ cls.description }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button type="submit">Begin Descent</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Save Slots</h2>
+  {% if slots %}
+    <ul>
+    {% for slot_id, state in slots.items() %}
+      <li>
+        <strong>{{ slot_id }}</strong> —
+        {{ state.player_name }} the {{ state.class_name }}
+        — Room {{ state.room_id }}
+        — Level {{ state.level }}
+        — Status {{ state.status }}
+        — <a href="{{ url_for('game.view_game', slot_id=slot_id) }}">Open</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No saves yet.</p>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>Local Leaderboard</h2>
+  {% if leaderboard %}
+    <ol>
+      {% for entry in leaderboard %}
+      <li>{{ entry.player_name }} — {{ entry.class_name }} — {{ entry.score }} pts — {{ entry.result }}</li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>No local leaderboard entries yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

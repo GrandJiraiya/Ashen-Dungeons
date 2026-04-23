@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Admin - Ashen Dungeons{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>Content Overview</h2>
+  <ul>
+    {% for key, value in counts.items() %}
+    <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
