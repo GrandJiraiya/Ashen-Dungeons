@@ -11,7 +11,7 @@ class BaseConfig:
         "postgresql+psycopg://postgres:postgres@localhost:5432/ashen_dungeons",
     )
     SQLALCHEMY_ECHO = os.getenv("SQLALCHEMY_ECHO", "false").lower() == "true"
-
+    CONTENT_ROOT = os.getenv("CONTENT_ROOT", "content")
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
