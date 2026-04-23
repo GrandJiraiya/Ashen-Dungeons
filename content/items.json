@@ -1,4 +1,49 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "id": "iron_blade",
+      "name": "Iron Blade",
+      "kind": "weapon",
+      "slot": "weapon",
+      "bonus": {
+        "attack": 3
+      },
+      "price": 35
+    },
+    {
+      "id": "grave_mail",
+      "name": "Grave Mail",
+      "kind": "armor",
+      "slot": "armor",
+      "bonus": {
+        "defense": 3
+      },
+      "price": 35
+    },
+    {
+      "id": "swift_boots",
+      "name": "Swift Boots",
+      "kind": "armor",
+      "slot": "trinket",
+      "bonus": {
+        "speed": 2
+      },
+      "price": 40
+    },
+    {
+      "id": "healing_draught",
+      "name": "Healing Draught",
+      "kind": "consumable",
+      "heal": 35,
+      "price": 15
+    },
+    {
+      "id": "mana_ember",
+      "name": "Mana Ember",
+      "kind": "consumable",
+      "mp_restore": 20,
+      "price": 15
+    }
+  ]
 }

@@ -1,4 +1,7 @@
 {
   "version": 1,
-  "ui_text": {}
+  "ui_text": {
+    "title": "Ashen Dungeons",
+    "subtitle": "Local MVP Build"
+  }
 }

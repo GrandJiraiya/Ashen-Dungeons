@@ -1,4 +1,9 @@
 {
   "version": 1,
-  "bosses": []
+  "bosses": [
+    {
+      "id": "ashen_warden",
+      "title": "Final Boss"
+    }
+  ]
 }

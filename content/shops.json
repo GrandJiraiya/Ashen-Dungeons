@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "shops": []
+  "shops": [
+    {
+      "id": "merchant_01",
+      "inventory_item_ids": [
+        "healing_draught",
+        "mana_ember",
+        "iron_blade",
+        "grave_mail"
+      ]
+    }
+  ]
 }

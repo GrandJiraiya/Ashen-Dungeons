@@ -1,4 +1,98 @@
 {
   "version": 1,
-  "rooms": []
+  "rooms": [
+    {
+      "id": "room_01",
+      "type": "battle",
+      "title": "Collapsed Gate",
+      "enemy_pack_id": "rats",
+      "reward_table_id": "early_common",
+      "next_nodes": [
+        "room_02"
+      ]
+    },
+    {
+      "id": "room_02",
+      "type": "event",
+      "title": "Ashen Shrine",
+      "event_id": "ember_shrine",
+      "next_nodes": [
+        "room_03"
+      ]
+    },
+    {
+      "id": "room_03",
+      "type": "battle",
+      "title": "Bone Hall",
+      "enemy_pack_id": "skeleton",
+      "reward_table_id": "early_common",
+      "next_nodes": [
+        "room_04"
+      ]
+    },
+    {
+      "id": "room_04",
+      "type": "rest",
+      "title": "Quiet Alcove",
+      "next_nodes": [
+        "room_05"
+      ]
+    },
+    {
+      "id": "room_05",
+      "type": "battle",
+      "title": "Rot Pit",
+      "enemy_pack_id": "ghoul",
+      "reward_table_id": "early_rare",
+      "next_nodes": [
+        "room_06"
+      ]
+    },
+    {
+      "id": "room_06",
+      "type": "merchant",
+      "title": "Torchbearer's Stall",
+      "shop_id": "merchant_01",
+      "next_nodes": [
+        "room_07"
+      ]
+    },
+    {
+      "id": "room_07",
+      "type": "battle",
+      "title": "Crypt Steps",
+      "enemy_pack_id": "cultist",
+      "reward_table_id": "early_rare",
+      "next_nodes": [
+        "room_08"
+      ]
+    },
+    {
+      "id": "room_08",
+      "type": "event",
+      "title": "Blood Well",
+      "event_id": "blood_well",
+      "next_nodes": [
+        "room_09"
+      ]
+    },
+    {
+      "id": "room_09",
+      "type": "battle",
+      "title": "King's Threshold",
+      "enemy_pack_id": "elite_guard",
+      "reward_table_id": "boss_prep",
+      "next_nodes": [
+        "room_10"
+      ]
+    },
+    {
+      "id": "room_10",
+      "type": "boss",
+      "title": "Ashen Warden",
+      "enemy_pack_id": "ashen_warden",
+      "reward_table_id": "boss_reward",
+      "next_nodes": []
+    }
+  ]
 }

@@ -1,4 +1,90 @@
 {
   "version": 1,
-  "loot_tables": []
+  "loot_tables": [
+    {
+      "id": "early_common",
+      "entries": [
+        {
+          "type": "gold",
+          "amount": 12,
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "item_id": "healing_draught",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "item_id": "iron_blade",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "early_rare",
+      "entries": [
+        {
+          "type": "gold",
+          "amount": 18,
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "item_id": "grave_mail",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "item_id": "mana_ember",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "item_id": "swift_boots",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "boss_prep",
+      "entries": [
+        {
+          "type": "item",
+          "item_id": "healing_draught",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "item_id": "mana_ember",
+          "weight": 3
+        },
+        {
+          "type": "gold",
+          "amount": 25,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "boss_reward",
+      "entries": [
+        {
+          "type": "gold",
+          "amount": 100,
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "item_id": "swift_boots",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "item_id": "grave_mail",
+          "weight": 1
+        }
+      ]
+    }
+  ]
 }

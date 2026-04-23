@@ -1,4 +1,65 @@
 {
   "version": 1,
-  "enemies": []
+  "enemies": [
+    {
+      "id": "rats",
+      "name": "Ash Rats",
+      "hp": 28,
+      "attack": 8,
+      "defense": 2,
+      "speed": 7,
+      "gold": 8,
+      "xp": 12
+    },
+    {
+      "id": "skeleton",
+      "name": "Crypt Skeleton",
+      "hp": 40,
+      "attack": 10,
+      "defense": 4,
+      "speed": 5,
+      "gold": 12,
+      "xp": 18
+    },
+    {
+      "id": "ghoul",
+      "name": "Rot Ghoul",
+      "hp": 52,
+      "attack": 12,
+      "defense": 5,
+      "speed": 4,
+      "gold": 18,
+      "xp": 24
+    },
+    {
+      "id": "cultist",
+      "name": "Dread Cultist",
+      "hp": 46,
+      "attack": 13,
+      "defense": 4,
+      "speed": 8,
+      "gold": 20,
+      "xp": 28
+    },
+    {
+      "id": "elite_guard",
+      "name": "Bone Guard",
+      "hp": 64,
+      "attack": 15,
+      "defense": 7,
+      "speed": 6,
+      "gold": 26,
+      "xp": 36
+    },
+    {
+      "id": "ashen_warden",
+      "name": "Ashen Warden",
+      "hp": 110,
+      "attack": 18,
+      "defense": 8,
+      "speed": 7,
+      "gold": 60,
+      "xp": 80
+    }
+  ]
 }
