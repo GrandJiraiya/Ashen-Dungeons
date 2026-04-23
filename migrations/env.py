@@ -6,7 +6,7 @@ import os
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from ashen_dungeons.db.base import Base
+from ashen_dungeons.db import Base
 
 config = context.config
 
