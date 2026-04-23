@@ -6,6 +6,4 @@ from .db.session import init_db
 
 def init_extensions(app: Flask) -> None:
     init_db(app)
-    app.extensions["content_registry"] = load_content(
-        app.config.get("CONTENT_ROOT", "content")
-    )
+    app.extensions["content_registry"] = load_content(app.config["CONTENT_ROOT"])
