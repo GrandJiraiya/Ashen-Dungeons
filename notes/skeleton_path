@@ -1,0 +1,203 @@
+ashen-dungeons/
+├─ .github/
+│  └─ workflows/
+│     ├─ ci.yml
+│     └─ deploy.yml
+│
+├─ docs/
+│  ├─ overview.md
+│  ├─ game-loop.md
+│  ├─ combat-rules.md
+│  ├─ content-pipeline.md
+│  ├─ art-guidelines.md
+│  ├─ audio-guidelines.md
+│  ├─ database-schema.md
+│  └─ api-contracts.md
+│
+├─ content/
+│  ├─ classes.json
+│  ├─ dungeons.json
+│  ├─ rooms.json
+│  ├─ enemies.json
+│  ├─ bosses.json
+│  ├─ items.json
+│  ├─ loot_tables.json
+│  ├─ shops.json
+│  ├─ status_effects.json
+│  ├─ ui_text.json
+│  └─ audio_map.json
+│
+├─ assets/
+│  ├─ images/
+│  │  ├─ characters/
+│  │  │  └─ .gitkeep
+│  │  ├─ enemies/
+│  │  │  └─ .gitkeep
+│  │  ├─ bosses/
+│  │  │  └─ .gitkeep
+│  │  ├─ backgrounds/
+│  │  │  └─ .gitkeep
+│  │  ├─ items/
+│  │  │  └─ .gitkeep
+│  │  ├─ ui/
+│  │  │  └─ .gitkeep
+│  │  └─ placeholders/
+│  │     ├─ hero-placeholder.png
+│  │     ├─ enemy-placeholder.png
+│  │     ├─ boss-placeholder.png
+│  │     ├─ bg-placeholder.png
+│  │     └─ item-placeholder.png
+│  │
+│  ├─ audio/
+│  │  ├─ music/
+│  │  │  ├─ town-theme.ogg
+│  │  │  ├─ dungeon-theme.ogg
+│  │  │  └─ boss-theme.ogg
+│  │  ├─ sfx/
+│  │  │  ├─ click.ogg
+│  │  │  ├─ attack.ogg
+│  │  │  ├─ hit.ogg
+│  │  │  ├─ loot.ogg
+│  │  │  ├─ buy.ogg
+│  │  │  └─ death.ogg
+│  │  └─ voice/
+│  │     └─ .gitkeep
+│  │
+│  └─ README.md
+│
+├─ infra/
+│  ├─ docker/
+│  │  ├─ Dockerfile
+│  │  └─ docker-compose.yml
+│  ├─ railway/
+│  │  └─ railway.json
+│  └─ nginx/
+│     └─ default.conf
+│
+├─ migrations/
+│  ├─ env.py
+│  ├─ script.py.mako
+│  └─ versions/
+│
+├─ scripts/
+│  ├─ dev.sh
+│  ├─ seed_content.py
+│  ├─ seed_demo_data.py
+│  ├─ import_assets.py
+│  └─ backup_db.sh
+│
+├─ tests/
+│  ├─ unit/
+│  │  ├─ test_combat_engine.py
+│  │  ├─ test_loot_engine.py
+│  │  ├─ test_progression.py
+│  │  └─ test_shop.py
+│  ├─ integration/
+│  │  ├─ test_save_load_api.py
+│  │  ├─ test_run_flow_api.py
+│  │  └─ test_leaderboard_api.py
+│  ├─ e2e/
+│  │  ├─ test_new_game.py
+│  │  ├─ test_full_run.py
+│  │  └─ test_game_over_submit_score.py
+│  └─ conftest.py
+│
+├─ src/
+│  └─ ashen_dungeons/
+│     ├─ __init__.py
+│     ├─ config.py
+│     ├─ extensions.py
+│     ├─ logging.py
+│     │
+│     ├─ domain/
+│     │  ├─ combat/
+│     │  │  ├─ engine.py
+│     │  │  ├─ formulas.py
+│     │  │  ├─ effects.py
+│     │  │  └─ schemas.py
+│     │  ├─ progression/
+│     │  │  ├─ leveling.py
+│     │  │  ├─ stats.py
+│     │  │  └─ classes.py
+│     │  ├─ loot/
+│     │  │  ├─ drops.py
+│     │  │  ├─ rarity.py
+│     │  │  └─ inventory_rules.py
+│     │  ├─ dungeon/
+│     │  │  ├─ generator.py
+│     │  │  ├─ encounters.py
+│     │  │  └─ rooms.py
+│     │  └─ leaderboard/
+│     │     └─ ranking.py
+│     │
+│     ├─ db/
+│     │  ├─ base.py
+│     │  ├─ session.py
+│     │  ├─ models/
+│     │  │  ├─ player.py
+│     │  │  ├─ run.py
+│     │  │  ├─ save_slot.py
+│     │  │  ├─ inventory_item.py
+│     │  │  ├─ encounter_log.py
+│     │  │  ├─ leaderboard_entry.py
+│     │  │  └─ asset_manifest.py
+│     │  └─ repositories/
+│     │     ├─ players.py
+│     │     ├─ runs.py
+│     │     ├─ saves.py
+│     │     ├─ leaderboard.py
+│     │     └─ assets.py
+│     │
+│     ├─ services/
+│     │  ├─ game_service.py
+│     │  ├─ save_service.py
+│     │  ├─ leaderboard_service.py
+│     │  ├─ asset_service.py
+│     │  └─ audio_service.py
+│     │
+│     ├─ web/
+│     │  ├─ blueprints/
+│     │  │  ├─ site.py
+│     │  │  ├─ game.py
+│     │  │  ├─ api.py
+│     │  │  └─ admin.py
+│     │  ├─ templates/
+│     │  │  ├─ base.html
+│     │  │  ├─ home.html
+│     │  │  ├─ new_game.html
+│     │  │  ├─ game.html
+│     │  │  ├─ load_game.html
+│     │  │  ├─ leaderboard.html
+│     │  │  ├─ settings.html
+│     │  │  └─ admin_content.html
+│     │  └─ static/
+│     │     ├─ css/
+│     │     │  ├─ base.css
+│     │     │  ├─ game.css
+│     │     │  └─ ui.css
+│     │     ├─ js/
+│     │     │  ├─ game.js
+│     │     │  ├─ combat.js
+│     │     │  ├─ audio.js
+│     │     │  ├─ inventory.js
+│     │     │  └─ leaderboard.js
+│     │     └─ vendor/
+│     │        └─ howler/
+│     │           └─ howler.min.js
+│     │
+│     ├─ cli/
+│     │  ├─ seed.py
+│     │  ├─ lint.py
+│     │  └─ smoke.py
+│     │
+│     └─ templates_email/
+│        └─ .gitkeep
+│
+├─ .env.example
+├─ .gitignore
+├─ alembic.ini
+├─ app.py
+├─ wsgi.py
+├─ pyproject.toml
+├─ README.md
+└─ Makefile
