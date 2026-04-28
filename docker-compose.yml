@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ashen_dungeons
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ashen_dungeons"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      FLASK_ENV: development
+      SECRET_KEY: dev-secret-key
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/ashen_dungeons
+      TEST_DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/ashen_dungeons_test
+      CONTENT_ROOT: content
+      PYTHONPATH: /app/src
+    ports:
+      - "5000:5000"
+    command: python app.py
+
+volumes:
+  postgres_data:
