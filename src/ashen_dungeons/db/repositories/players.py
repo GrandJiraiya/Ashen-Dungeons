@@ -32,3 +32,9 @@ class PlayerRepository(BaseRepository):
         player.last_seen_at = datetime.now(timezone.utc)
         self.flush()
         return player
+
+    def update_display_name(self, player: Player, display_name: str) -> Player:
+        player.display_name = display_name
+        player.updated_at = datetime.now(timezone.utc)
+        self.flush()
+        return player
