@@ -46,3 +46,10 @@ class SaveSlotRepository(BaseRepository):
         slot.updated_at = datetime.now(timezone.utc)
         self.flush()
         return slot
+        
+    def get_for_player_by_id(self, player_id, save_slot_id):
+    stmt = select(SaveSlot).where(
+        SaveSlot.id == save_slot_id,
+        SaveSlot.player_id == player_id,
+    )
+    return self.session.scalars(stmt).first()
