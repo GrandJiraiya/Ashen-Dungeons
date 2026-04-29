@@ -188,3 +188,108 @@ def _serialize_player(player) -> dict:
         "updated_at": player.updated_at.isoformat() if player.updated_at else None,
         "last_seen_at": player.last_seen_at.isoformat() if player.last_seen_at else None,
     }
+    
+@bp.post("/runs")
+def create_run():
+    current_player = _get_current_player_or_error()
+    if isinstance(current_player, tuple):
+        return current_player
+
+    payload = request.get_json(silent=True) or {}
+
+    class_id = str(payload.get("class_id", "")).strip()
+    if not class_id:
+        return jsonify({"error": "class_id_required"}), 400
+
+    save_slot_id = payload.get("save_slot_id")
+    try:
+        parsed_save_slot_id = UUID(str(save_slot_id))
+    except (TypeError, ValueError):
+        return jsonify({"error": "valid_save_slot_id_required"}), 400
+
+    registry = current_app.extensions["content_registry"]
+    class_def = registry.classes.get(class_id)
+
+    if class_def is None:
+        return jsonify({"error": "invalid_class_id"}), 400
+
+    base_stats = dict(class_def["base_stats"])
+    derived_stats = dict(base_stats)
+
+    try:
+        hp_max = int(base_stats["hp"])
+        mp_max = int(base_stats["mp"])
+    except (KeyError, TypeError, ValueError):
+        return jsonify({"error": "class_stats_invalid"}), 500
+
+    room_node_id = _resolve_start_room_node_id(registry)
+
+    db = get_db_session()
+    save_slots = SaveSlotRepository(db)
+    runs = RunRepository(db)
+
+    save_slot = save_slots.get_for_player_by_id(
+        current_player.id,
+        parsed_save_slot_id,
+    )
+
+    if save_slot is None:
+        return jsonify({"error": "save_slot_not_found"}), 404
+
+    try:
+        run = runs.create(
+            player_id=current_player.id,
+            save_slot_id=save_slot.id,
+            class_id=class_id,
+            room_node_id=room_node_id,
+            hp_current=hp_max,
+            hp_max=hp_max,
+            mp_current=mp_max,
+            mp_max=mp_max,
+            base_stats=base_stats,
+            derived_stats=derived_stats,
+        )
+
+        save_slots.set_last_run(save_slot, run.id)
+        db.commit()
+
+    except SQLAlchemyError:
+        db.rollback()
+        raise
+
+    return jsonify({"run": _serialize_run(run)}), 201
+    
+def _resolve_start_room_node_id(registry) -> str:
+    if "start" in registry.rooms:
+        return "start"
+
+    first_room_id = next(iter(registry.rooms), None)
+    if first_room_id:
+        return first_room_id
+
+    return "start"
+
+
+def _serialize_run(run) -> dict:
+    return {
+        "id": str(run.id),
+        "player_id": str(run.player_id),
+        "save_slot_id": str(run.save_slot_id),
+        "class_id": run.class_id,
+        "status": run.status,
+        "floor_number": run.floor_number,
+        "room_node_id": run.room_node_id,
+        "hp_current": run.hp_current,
+        "hp_max": run.hp_max,
+        "mp_current": run.mp_current,
+        "mp_max": run.mp_max,
+        "gold": run.gold,
+        "xp": run.xp,
+        "level": run.level,
+        "base_stats": run.base_stats,
+        "derived_stats": run.derived_stats,
+        "seed": run.seed,
+        "started_at": run.started_at.isoformat() if run.started_at else None,
+        "ended_at": run.ended_at.isoformat() if run.ended_at else None,
+    }
+    
